@@ -63,6 +63,7 @@ class MyArrayListTest {
             array[index] = random ;
             myArrayList.add(random);
         }
+
         Arrays.sort(array,0,1000);
         myArrayList.sort();
 
@@ -70,4 +71,61 @@ class MyArrayListTest {
 
     }
 
+    @Test
+    void get() {
+
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
+        int index = 0;
+        for( ; index < 1000; index++ ){
+            myArrayList.add(index);
+        }
+
+        // Returns the element at the specified position
+        // in this list element == 5
+        assertEquals(myArrayList.get(5),5);
+
+    }
+
+    @Test
+    void testToString() {
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
+        Object[] array = new Object[1000];
+
+        for(int index = 0 ; index < 1000; index++ ) {
+
+            array[index] = index;
+            myArrayList.add(index);
+        }
+
+        // String builder fot array
+        StringBuilder arrayString = new StringBuilder("[");
+        for (int i = 0; i < 1000; i++) {
+            arrayString.append(array[i]);
+            if (i != 999) {
+                arrayString.append(", ");
+            }
+        }
+        arrayString.append("]");
+
+        String myArrayListString = myArrayList.toString();
+
+        // String myArrayListString == arrayString
+        assertEquals(myArrayListString, arrayString.toString());
+
+    }
+
+    @Test
+    void toArray() {
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
+        Object[] array = new Object[1000];
+
+        for(int index = 0 ; index < 1000; index++ ){
+            int random = 1 + (int) (Math.random() * 1000);
+            array[index] = random ;
+            myArrayList.add(random);
+        }
+
+        //myArrayList like array == array;
+        assertArrayEquals(myArrayList.toArray(), array);
+    }
 }
