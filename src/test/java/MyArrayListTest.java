@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
@@ -127,5 +129,27 @@ class MyArrayListTest {
 
         //myArrayList like array == array;
         assertArrayEquals(myArrayList.toArray(), array);
+    }
+
+    @Test
+    void quickSort() {
+
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
+        Object[] array = new Object[1000];
+
+        Comparator<Object> comparator = null;
+
+        for(int index = 0 ; index < 1000; index++ ){
+            int random = 1 + (int) (Math.random() * 1000);
+            array[index] = random;
+            myArrayList.add(random);
+        }
+
+
+        Arrays.sort(array);
+        myArrayList.quickSort(comparator);
+
+        assertArrayEquals(myArrayList.toArray(), array);
+
     }
 }

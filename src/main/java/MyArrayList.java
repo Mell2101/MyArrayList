@@ -169,9 +169,42 @@ public class MyArrayList<E> {
         Arrays.sort((E[]) elements, 0, size);
     }
 
-
     public void quickSort(Comparator<? super E> comparator) {
-        Arrays.sort((E[]) elements, 0, size, comparator);
+        quickSort(0, size() - 1, comparator);
+    }
+
+    private void quickSort(int low, int high, Comparator<? super E> comparator) {
+        if (low < high) {
+            int pi = partition(low, high, comparator);
+            quickSort(low, pi - 1, comparator);
+            quickSort(pi + 1, high, comparator);
+        }
+    }
+
+    private int partition(int low, int high, Comparator<? super E> comparator) {
+        E pivot = (E) elements[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (comparator != null) {
+                if (comparator.compare((E) elements[j], pivot) < 0) {
+                    i++;
+                    swap(i, j);
+                }
+            } else {
+                if (((Comparable<E>) elements[j]).compareTo(pivot) < 0) {
+                    i++;
+                    swap(i, j);
+                }
+            }
+        }
+        swap(i + 1, high);
+        return i + 1;
+    }
+
+    private void swap(int i, int j) {
+        Object temp = elements[i];
+        elements[i] = elements[j];
+        elements[j] = temp;
     }
 
     @Override
